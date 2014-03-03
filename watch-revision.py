@@ -2,6 +2,7 @@
 #python watch.py ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Helloworld/
 #python ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Helloworld/watchdogFunctions/watch.py ~/Desktop/SAMBA/LOCAL/ttg-svnrepo/trunk/
 #enventos disponibles en FileSystemEventHandler event.is_directory, event.src_path, event.dest_path(<== Solo cuando un archivo ha sido renombrado o movido) 
+#NO VALIDO
 
 import sys
 import time

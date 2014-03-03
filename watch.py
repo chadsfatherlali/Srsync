@@ -76,9 +76,38 @@ class get_all_events(FileSystemEventHandler):
 
 
     def on_moved(self, event):
-        print "\n>>> " + self.user + " SE HA RENOMBRADO - MOVIDO: " + event.src_path
+        print "\n>>> " + self.user + " SE HA RENOMBRADO Ó MOVIDO: " + event.src_path
         print ">>> " + time.ctime()
-        print self.split_path_local(event.src_path)
+
+        sanitizeFROM = self.split_path_local(event.src_path)
+        sanitizeLocalPathFROM = self.localPath + sanitizeFROM
+        sanitizeRemotePathFROM = self.remotePath + sanitizeFROM
+
+        sanitizeTO = self.split_path_local(event.dest_path)
+        sanitizeLocalPathTO = self.localPath + sanitizeTO
+        sanitizeRemotePathTO = self.remotePath + sanitizeTO        
+
+        ##if(sanitizeRemotePathFROM)
+        # print os.path.exists(sanitizeRemotePathFROM)
+
+        if os.path.exists(sanitizeRemotePathFROM) and (event.is_directory == False):
+            #shutil.move(sanitizeRemotePathFROM, sanitizeRemotePathTO)
+            print 1
+        
+        elif os.path.exists(sanitizeRemotePathFROM) and (event.is_directory == True):
+            #os.rename(sanitizeRemotePathFROM, sanitizeRemotePathTO)
+            print 2
+
+        # print "\nFROM\n"
+        # print sanitizeFROM
+        # print sanitizeLocalPathFROM
+        print sanitizeRemotePathFROM
+
+        # print "\nTO\n"
+        # print sanitizeTO
+        # print sanitizeLocalPathTO
+        print sanitizeRemotePathTO
+
 
 
 

@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
 #python watch.py ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Helloworld/
 #python ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/Helloworld/watchdogFunctions/watch.py ~/Desktop/SAMBA/LOCAL/ttg-svnrepo/trunk/
+#python watch.py 
 #enventos disponibles en FileSystemEventHandler event.is_directory, event.src_path, event.dest_path(<== Solo cuando un archivo ha sido renombrado o movido) 
+#python /Users/ssanchez/Desktop/srsync/Srsync/watch.py /Users/ssanchez/Desktop/LOCAL/trunk/
 
 import sys
 import time
@@ -9,6 +12,9 @@ import pprint
 import os
 import re
 import subprocess
+import shutil
+import time
+import getpass
 
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -17,16 +23,18 @@ from watchdog.events import FileSystemEventHandler
 class get_all_events(FileSystemEventHandler):
     def __init__(self):
         self.folderBase = "trunk"
-        self.localPath = "~/Desktop/SAMBA/LOCAL/ttg-svnrepo/trunk/"
-        self.remotePath = "~/Desktop/SAMBA/REMOTO/ttg-svnrepo/trunk/"
+        self.localPath = "/Users/ssanchez/Desktop/LOCAL/trunk/"
+        self.remotePath = "/Users/ssanchez/Desktop/SAMBA/trunk/"
+        self.user = getpass.getuser().upper()
 
-
-    def ejecutar(self, x):
-        time.sleep(2)
-        proc = subprocess.Popen(x, 
-                                shell = True,
-                                stdin = subprocess.PIPE,
-                                stdout = subprocess.PIPE)
+        print "\n\n>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<"
+        print ">>> BIENVENIDO " + self.user + " !! XD"
+        print ">>> SRSYNC: Telecoming Group 2014."
+        print ">>> Dpto. de diseño."
+        print ">>> Version: 1.0."
+        print ">>> E-mail: graficottg@telecoming.com."        
+        print ">>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<"
+        print ">>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<\n\n\n"
 
 
     def split_path_local(self, path):
@@ -36,11 +44,13 @@ class get_all_events(FileSystemEventHandler):
 
     def on_modified(self, event):
         if event.is_directory == False: 
-            print ">>> SE HA MODIFICADO: " + event.src_path
+            print "\n>>> " + self.user + " SE HA MODIFICADO: " + event.src_path
+            print ">>> " + time.ctime()
 
 
     def on_created(self, event):
-        print ">>> SE HA CREADO: " + event.src_path
+        print "\n>>> " + self.user + " SE HA CREADO: " + event.src_path
+        print ">>> " + time.ctime()
 
         sanitize = self.split_path_local(event.src_path)
         sanitizeLocalPath = self.localPath + sanitize
@@ -48,28 +58,27 @@ class get_all_events(FileSystemEventHandler):
         
         if event.is_directory == True:
             if os.path.isdir(sanitizeRemotePath) == False:
-                cmd = "mkdir -p " + sanitizeRemotePath
+                operacion = os.makedirs(sanitizeRemotePath, 0777)
         
         elif event.is_directory == False:
             if os.path.exists(sanitizeRemotePath) == False:
                 goodPath = self.split_path_local(os.path.dirname(event.src_path))
-                cmd = "mkdir -p -m a=rwx '" + self.remotePath + goodPath + "' && cp -p '" + event.src_path + "' " + self.remotePath + goodPath
-            
-            else:
-                cmd = "cp -p '" + event.src_path + "' " + self.remotePath + goodPath
+                
+                if(os.path.isdir(self.localPath + goodPath) == True) and (os.path.isdir(self.remotePath + goodPath) == False):
+                    operacion = os.makedirs(self.remotePath + goodPath, 0777)
 
-        self.ejecutar(cmd)
+                operacion = shutil.copyfile(sanitizeLocalPath, sanitizeRemotePath)
 
 
     def on_deleted(self, event):
-        print ">>> SE HA BORRADO: " + event.src_path
+        print "\n>>> " + self.user + " SE HA BORRADO: " + event.src_path
+        print ">>> " + time.ctime()
 
 
     def on_moved(self, event):
-        print ">>> SE HA RENOMBRADO - MOVIDO: " + event.src_path
+        print "\n>>> " + self.user + " SE HA RENOMBRADO - MOVIDO: " + event.src_path
+        print ">>> " + time.ctime()
         print self.split_path_local(event.src_path)
-
-gae = get_all_events()
 
 
 

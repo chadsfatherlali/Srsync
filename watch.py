@@ -90,7 +90,7 @@ class get_all_events(FileSystemEventHandler):
           sanitizeRemotePathTO = self.remotePath + sanitizeTO
 
           try:
-               shutil.move(sanitizeRemotePathFROM, sanitizeRemotePathTO)
+               operacion = shutil.move(sanitizeRemotePathFROM, sanitizeRemotePathTO)
           except Exception:
                pass
 

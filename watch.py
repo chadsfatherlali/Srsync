@@ -23,12 +23,12 @@ from watchdog.events import FileSystemEventHandler
 class get_all_events(FileSystemEventHandler):
      def __init__(self):
           self.folderBase = "trunk"
-          self.localPath = "/Users/ssanchez/Desktop/LOCAL/trunk/"
-          self.remotePath = "/Users/ssanchez/Desktop/SAMBA/trunk/"
           self.user = getpass.getuser().upper()
+          self.localPath = "/Users/chadsfather/Desktop/SAMBA/LOCAL/ttg-svnrepo/trunk/" if self.user == "CHADSFATHER" else "/Users/ssanchez/Desktop/LOCAL/trunk/"
+          self.remotePath = "/Users/chadsfather/Desktop/SAMBA/REMOTO/ttg-svnrepo/trunk/" if self.user == "CHADSFATHER" else "/Users/ssanchez/Desktop/SAMBA/trunk/"
 
           print "\n\n>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<"
-          print ">>> BIENVENIDO " + self.user + " !! XD"
+          print ">>> BIENVENIDO " + self.user + " !! XD."
           print ">>>"
           print ">>> SRSYNC: Telecoming Group 2014."
           print ">>> Dpto. de diseño."
@@ -81,9 +81,6 @@ class get_all_events(FileSystemEventHandler):
           print ">>> " + self.user + "                     DESTINO: " + event.dest_path
           print ">>> " + time.ctime()
 
-          carpetasAcrear = []
-          archivosAcrear = []
-
           sanitizeFROM = self.split_path_local(event.src_path)
           sanitizeLocalPathFROM = self.localPath + sanitizeFROM
           sanitizeRemotePathFROM = self.remotePath + sanitizeFROM
@@ -92,50 +89,10 @@ class get_all_events(FileSystemEventHandler):
           sanitizeLocalPathTO = self.localPath + sanitizeTO
           sanitizeRemotePathTO = self.remotePath + sanitizeTO
 
-          if event.is_directory == True:
+          try:
                shutil.move(sanitizeRemotePathFROM, sanitizeRemotePathTO)
-          
-          elif event.is_directory == False:
-               goodPathFROM, goodFileFROM = os.path.split(sanitizeRemotePathFROM)
-               goodPathTO, goodFileTO = os.path.split(sanitizeRemotePathTO)
-
-               shutil.move(goodPathFROM, goodPathTO)
-               #shutil.move(sanitizeRemotePathFROM, sanitizeRemotePathTO)
-
-               # print "MD >>> " + goodPathFROM + " <<<<<>>>>> " + goodPathTO
-               # print "MF >>> " + sanitizeRemotePathFROM + " <<<<<>>>>> " + sanitizeRemotePathTO
-
-          # shutil.move(sanitizeRemotePathFROM, sanitizeRemotePathTO)
-
-          # if (os.path.exists(sanitizeRemotePathFROM) == True) and (event.is_directory == False):
-          #     archivosAcrear.append(sanitizeRemotePathFROM)
-          #     archivosAcrear.append(sanitizeRemotePathTO)
-
-          # elif (os.path.exists(sanitizeRemotePathFROM) == True) and (event.is_directory == True):
-          #     carpetasAcrear.append(sanitizeRemotePathFROM)
-          #     carpetasAcrear.append(sanitizeRemotePathTO)
-
-          # if carpetasAcrear:
-          #     print "\nCC " + carpetasAcrear[0]
-          #     print "CC " + carpetasAcrear[1]
-          #     shutil.move(carpetasAcrear[0], carpetasAcrear[1])
-          #     carpetasAcrear = []
-
-          # if archivosAcrear:
-          #     print "\nAC " + archivosAcrear[0]
-          #     print "AC " + archivosAcrear[1]
-          #     shutil.move(archivosAcrear[0], archivosAcrear[1])
-          #     archivosAcrear = []
-
-          # print "\nFROM\n"
-          # print sanitizeFROM
-          # print sanitizeLocalPathFROM
-          # print sanitizeRemotePathFROM
-
-          # print "\nTO\n"
-          # print sanitizeTO
-          # print sanitizeLocalPathTO
-          # print sanitizeRemotePathTO
+          except Exception:
+               pass
 
 
 if __name__ == "__main__":

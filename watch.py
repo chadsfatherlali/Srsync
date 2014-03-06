@@ -77,8 +77,9 @@ class get_all_events(FileSystemEventHandler):
 
 
      def on_moved(self, event):
-          print "\n>>> " + self.user + " SE HA RENOMBRADO Ó MOVIDO: " + event.src_path
-          print ">>> " + self.user + "                     DESTINO: " + event.dest_path
+          print "\n>>> " + self.user + " SE HA RENOMBRADO Ó MOVIDO:"
+          print ">>> " + self.user + " ORI: " + event.src_path
+          print ">>> " + self.user + " DES: " + event.dest_path
           print ">>> " + time.ctime()
 
           sanitizeFROM = self.split_path_local(event.src_path)

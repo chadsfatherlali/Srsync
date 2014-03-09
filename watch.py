@@ -48,6 +48,13 @@ class get_all_events(FileSystemEventHandler):
                print "\n>>> " + self.user + " SE HA MODIFICADO: " + event.src_path
                print ">>> " + time.ctime()
 
+               sanitize = self.split_path_local(event.src_path)
+               sanitizeLocalPath = self.localPath + sanitize
+               sanitizeRemotePath = self.remotePath + sanitize
+
+               if os.path.exists(sanitizeRemotePath) == True:
+                    shutil.copyfile(sanitizeLocalPath, sanitizeRemotePath);
+
 
      def on_created(self, event):
           print "\n>>> " + self.user + " SE HA CREADO: " + event.src_path
@@ -75,6 +82,18 @@ class get_all_events(FileSystemEventHandler):
           print "\n>>> " + self.user + " SE HA BORRADO: " + event.src_path
           print ">>> " + time.ctime()
 
+          sanitize = self.split_path_local(event.src_path)
+          sanitizeLocalPath = self.localPath + sanitize
+          sanitizeRemotePath = self.remotePath + sanitize
+
+          if event.is_directory == True:
+               if os.path.isdir(sanitizeRemotePath) == True:
+                    shutil.rmtree(sanitizeRemotePath)
+
+          elif event.is_directory == False:
+               if os.path.exists(sanitizeRemotePath) == True:
+                    os.remove(sanitizeRemotePath)
+
 
      def on_moved(self, event):
           print "\n>>> " + self.user + " SE HA RENOMBRADO Ó MOVIDO:"
@@ -90,11 +109,15 @@ class get_all_events(FileSystemEventHandler):
           sanitizeLocalPathTO = self.localPath + sanitizeTO
           sanitizeRemotePathTO = self.remotePath + sanitizeTO
 
-          try:
+          try: 
+
+               # print "DF: " + sanitizeRemotePathFROM
+               # print "DT: " + sanitizeRemotePathTO
                operacion = shutil.move(sanitizeRemotePathFROM, sanitizeRemotePathTO)
+               return None
           except Exception:
                pass
-
+                
 
 if __name__ == "__main__":
     path = sys.argv[1] if len(sys.argv) > 1 else '.'
@@ -109,9 +132,9 @@ if __name__ == "__main__":
     observer.start()
 
     try:
-        while True:
-            time.sleep(1)
+          while True:
+               time.sleep(1)
     except KeyboardInterrupt:
-        observer.stop()
+          observer.stop()
     
     observer.join()

@@ -44,6 +44,9 @@ class get_all_events(FileSystemEventHandler):
 
 
      def on_modified(self, event):
+          if event.is_directory == True:
+               self.folderevent = True
+
           if event.is_directory == False: 
                print "\n>>> " + self.user + " SE HA MODIFICADO: " + event.src_path
                print ">>> " + time.ctime()
@@ -100,7 +103,7 @@ class get_all_events(FileSystemEventHandler):
           print ">>> " + self.user + " ORI: " + event.src_path
           print ">>> " + self.user + " DES: " + event.dest_path
           print ">>> " + time.ctime()
-
+          
           sanitizeFROM = self.split_path_local(event.src_path)
           sanitizeLocalPathFROM = self.localPath + sanitizeFROM
           sanitizeRemotePathFROM = self.remotePath + sanitizeFROM
@@ -110,31 +113,28 @@ class get_all_events(FileSystemEventHandler):
           sanitizeRemotePathTO = self.remotePath + sanitizeTO
 
           try: 
-
-               # print "DF: " + sanitizeRemotePathFROM
-               # print "DT: " + sanitizeRemotePathTO
                operacion = shutil.move(sanitizeRemotePathFROM, sanitizeRemotePathTO)
-               return None
           except Exception:
                pass
+
                 
 
 if __name__ == "__main__":
-    path = sys.argv[1] if len(sys.argv) > 1 else '.'
+     path = sys.argv[1] if len(sys.argv) > 1 else '.'
     
-    event_handler = get_all_events()
-    observer = Observer()
-    observer.schedule(
+     event_handler = get_all_events()
+     observer = Observer()
+     observer.schedule(
                     event_handler, 
                     path, 
                     recursive = True)
     
-    observer.start()
+     observer.start()
 
-    try:
+     try:
           while True:
                time.sleep(1)
-    except KeyboardInterrupt:
+     except KeyboardInterrupt:
           observer.stop()
-    
-    observer.join()
+
+     observer.join()

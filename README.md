@@ -9,7 +9,7 @@ Srsync para unidades remotas se necesita (MAC OS X) FUSE http://osxfuse.github.i
 
 
 ```html
-
-alert = 1
-
+<pre>
+  alert = 1
+</pre>
 ```

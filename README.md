@@ -24,7 +24,6 @@ Configuración del Srsync:
 
 ```html
 self.folderBase = "<nombre-directorio-base-comun-en-LOCAL-y-REMOTO>"
-self.user = getpass.getuser().upper()
 self.localPath = "<camino-al-directorio-LOCAL>"
 self.remotePath = "<camino-al-directorio-REMOTO>"
 ```

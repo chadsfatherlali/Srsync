@@ -44,9 +44,6 @@ class get_all_events(FileSystemEventHandler):
 
 
      def on_modified(self, event):
-          if event.is_directory == True:
-               self.folderevent = True
-
           if event.is_directory == False: 
                print "\n>>> " + self.user + " SE HA MODIFICADO: " + event.src_path
                print ">>> " + time.ctime()

@@ -19,7 +19,7 @@ sshfs -o IdentityFile=~/.ssh/<llave-privada> root@<servidor>:<camino-al-director
 
 ```
 
-Configuración del SRSYNC:
+Configuración del Srsync:
 -------------------------
 
 ```html

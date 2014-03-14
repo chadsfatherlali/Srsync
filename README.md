@@ -28,3 +28,10 @@ self.user = getpass.getuser().upper()
 self.localPath = "<camino-al-directorio-LOCAL>"
 self.remotePath = "<camino-al-directorio-REMOTO>"
 ```
+
+Ejecutar el Srsync:
+-------------------
+
+```html
+python watch.py <directorio-que-va-escuchar-watch>
+```

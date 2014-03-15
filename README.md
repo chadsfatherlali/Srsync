@@ -30,5 +30,5 @@ Ejecutar el Srsync:
 -------------------
 
 ```html
-python watch.py <directorio-que-va-escuchar-watch>
+python watch.py <directorio-que-va-escuchar-WATCHDOG>
 ```

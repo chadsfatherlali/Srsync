@@ -7,6 +7,10 @@ Esta librería es dependiente del packete python watchdog https://github.com/gor
 
 Srsync para unidades remotas se necesita (MAC OS X) FUSE http://osxfuse.github.io/
 
+Posibles soluciones al tener algun problema al instalar WATCHDOG:
+-----------------------------------------------------------------
+http://stackoverflow.com/questions/22390655/ansible-installation-clang-error-unknown-argument-mno-fused-madd
+
 Monstar la unidad remota con Mac Fuse y SSHFS:
 ----------------------------------------------
 

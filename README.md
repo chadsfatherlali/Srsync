@@ -17,7 +17,7 @@ https://www.digitalocean.com/community/articles/how-to-use-sshfs-to-mount-remote
 
 ```html
 sudo apt-get install sshfs
-sshfs -o IdentityFile=~/.ssh/<llave-privada> root@<servidor>:<camino-al-directorio-REMOTO> <camino-al-directorio-LOCAL> -o volname=<nombre-de-directorio-en-local>
+sshfs -o IdentityFile=<camino-llave-privada> root@<servidor>:<camino-al-directorio-REMOTO> <camino-al-directorio-LOCAL> -o volname=<nombre-de-directorio-en-local>
 ```
 
 Configuración del Srsync ( watch.py ):

@@ -20,8 +20,8 @@ sudo apt-get install sshfs
 sshfs -o IdentityFile=<camino-llave-privada> root@<servidor>:<camino-al-directorio-REMOTO> <camino-al-directorio-LOCAL> -o volname=<nombre-de-directorio-en-local>
 ```
 
-Configuración del Srsync ( watch.py ):
---------------------------------------
+Configuración del Srsync "watch.py":
+------------------------------------
 
 ```html
 self.folderBase = "<nombre-directorio-base-comun-en-LOCAL-y-REMOTO>"
